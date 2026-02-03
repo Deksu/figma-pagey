@@ -22,6 +22,17 @@ A lightweight Figma plugin that creates a set of template pages in the current f
 - Watch mode: `npm run dev`
 - Tests: `npm test`
 - Typecheck: `npm run typecheck`
+ - Build: `npm run build`
+
+## Continuous Integration
+GitHub Actions runs typecheck, tests, and a production build on every push to `main` and for all pull requests.
+
+## Release Checklist
+1. Update `package.json` version (semver).
+2. Run `npm test` and `npm run build`.
+3. Verify the plugin UI and page creation inside Figma.
+4. Commit the version bump and tag the release.
+5. (Optional) Add release notes on GitHub.
 
 ## Project Structure
 - `src/code.ts`: main Figma plugin logic
