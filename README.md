@@ -1,4 +1,4 @@
-# Figma Pager - A custom Figma Plugin
+# Figma Pagey - A custom Figma Plugin
 
 A lightweight Figma plugin that creates a set of template pages in the current file. v1 ships with a single template (Default) and supports undoing the created pages.
 

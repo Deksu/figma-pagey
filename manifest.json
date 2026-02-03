@@ -1,5 +1,5 @@
 {
-  "name": "Template Page Creator",
+  "name": "Figma Pagey",
   "id": "com.example.template-page-creator",
   "api": "1.0.0",
   "main": "dist/code.js",

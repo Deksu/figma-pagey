@@ -82,8 +82,8 @@ const App = () => {
   return (
     <div>
       <div className="brand">
-        <img className="logo" src={logoUrl} alt="Pager logo" />
-        <div className="brand-name">Pager</div>
+        <img className="logo" src={logoUrl} alt="Pagey logo" />
+        <div className="brand-name">Pagey</div>
       </div>
 
       {view === 'select' && (
