@@ -6,9 +6,13 @@
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack --mode=development --watch",
+    "preflight": "npm run typecheck && npm test && npm run build",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "release": "npm version"
+    "release": "npm run preflight && npm version",
+    "release:patch": "npm run preflight && npm version patch && git push --follow-tags",
+    "release:minor": "npm run preflight && npm version minor && git push --follow-tags",
+    "release:major": "npm run preflight && npm version major && git push --follow-tags"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.71.0",
