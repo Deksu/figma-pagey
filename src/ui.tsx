@@ -2,9 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { TEMPLATES, Template } from './templates';
 import './ui.css';
-import logoUrl from '../images/placeholder-logo.png';
+import logoUrl from '../images/logo-v2.svg';
 import previewImgUrl from '../images/preview-img-v2.png';
 import iconAddUrl from '../images/icon-add.svg';
+import defaultSelectionImgUrl from '../images/default-selection-img.png';
+import sectionedSelectionImgUrl from '../images/sectioned-selection-img.png';
+import customSelectionImgUrl from '../images/custom-selection-img.png';
 
 type PluginMessage =
   | { type: 'CREATED_PAGES'; createdIds: string[]; templateId: string }
@@ -30,6 +33,15 @@ const App = () => {
   const selectedTemplate = useMemo<Template | undefined>(
     () => TEMPLATES.find((template) => template.id === selectedTemplateId),
     [selectedTemplateId]
+  );
+
+  const selectionImages: Record<string, string> = useMemo(
+    () => ({
+      default: defaultSelectionImgUrl,
+      sectioned: sectionedSelectionImgUrl,
+      'selection-3': customSelectionImgUrl
+    }),
+    []
   );
 
   useEffect(() => {
@@ -77,33 +89,39 @@ const App = () => {
       {view === 'select' && (
         <div>
           <div className="section grid">
-            {TEMPLATES.map((template) => (
-              <label
-                key={template.id}
-                className={`template-option ${
-                  template.id === selectedTemplateId ? 'selected' : ''
-                }`}
-                onMouseDown={(event) => event.preventDefault()}
-              >
-                <input
-                  type="radio"
-                  name="template"
-                  value={template.id}
-                  checked={template.id === selectedTemplateId}
-                  onChange={() => setSelectedTemplateId(template.id)}
-                />
-                <div className="template-card">
-                  <span className="radio-dot" aria-hidden="true" />
-                  <img
-                    className="preview-thumb"
-                    src={previewImgUrl}
-                    alt=""
-                    aria-hidden="true"
+            {TEMPLATES.map((template) => {
+              const isDisabled = template.id === 'selection-3';
+              return (
+                <label
+                  key={template.id}
+                  className={`template-option ${
+                    template.id === selectedTemplateId ? 'selected' : ''
+                  } ${isDisabled ? 'disabled' : ''}`}
+                  onMouseDown={(event) => event.preventDefault()}
+                >
+                  <input
+                    type="radio"
+                    name="template"
+                    value={template.id}
+                    checked={template.id === selectedTemplateId}
+                    onChange={() =>
+                      isDisabled ? undefined : setSelectedTemplateId(template.id)
+                    }
+                    disabled={isDisabled}
                   />
-                </div>
-                <div className="template-label">{template.name}</div>
-              </label>
-            ))}
+                  <div className="template-card">
+                    <span className="radio-dot" aria-hidden="true" />
+                    <img
+                      className="preview-thumb"
+                      src={selectionImages[template.id] ?? previewImgUrl}
+                      alt=""
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="template-label">{template.name}</div>
+                </label>
+              );
+            })}
           </div>
 
           <div className="section preview">

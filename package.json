@@ -1,7 +1,7 @@
 {
   "name": "figma-template-pages-plugin",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Figma plugin to create template pages",
   "scripts": {
     "build": "webpack --mode=production",

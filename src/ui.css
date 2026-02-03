@@ -49,8 +49,8 @@ body {
 }
 
 .logo {
-  width: 36px;
-  height: 36px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
 }
 
@@ -81,6 +81,12 @@ body {
   gap: var(--space-3);
   cursor: pointer;
   color: var(--text);
+}
+
+.template-option.disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .template-option input {

@@ -55,7 +55,7 @@ export const TEMPLATES: Template[] = [
   },
   {
     id: 'selection-3',
-    name: 'Selection #3',
+    name: 'Custom (coming soon)',
     pages: DEFAULT_TEMPLATE.pages
   }
 ];
