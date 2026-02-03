@@ -7,7 +7,8 @@
     "build": "webpack --mode=production",
     "dev": "webpack --mode=development --watch",
     "test": "jest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "release": "npm version"
   },
   "devDependencies": {
     "@figma/plugin-typings": "^1.71.0",
