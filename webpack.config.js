@@ -23,7 +23,7 @@ class FigmaInlineUiPlugin {
           let html = htmlAsset.source().toString();
           const uiJs = uiJsAsset.source().toString();
           const uiJsBase64 = Buffer.from(uiJs, 'utf8').toString('base64');
-          const inlineScript = `<script>eval(atob("${uiJsBase64}"))</script>`;
+          const inlineScript = `<script>(function(){var b="${uiJsBase64}";var s=atob(b);var code;if(typeof TextDecoder!=="undefined"){var bytes=Uint8Array.from(s,function(c){return c.charCodeAt(0);});code=new TextDecoder("utf-8").decode(bytes);}else{code=decodeURIComponent(escape(s));}eval(code);}())</script>`;
 
           html = html.replace(
             /<script[^>]*src="ui\.js"[^>]*><\/script>/,

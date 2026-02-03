@@ -8,23 +8,50 @@ export const DEFAULT_TEMPLATE: Template = {
   id: 'default',
   name: 'Default',
   pages: [
-    'Cover',
-    'References',
-    'Exploration',
-    'Preview',
-    'Master prototype',
-    'Final views',
-    'Components',
-    'Archive'
+    '🖼️ Cover',
+    '---',
+    '✅ Final views',
+    '▶️ Master prototype',
+    '---',
+    '🧩 Components',
+    '---',
+    '✏️ Exploration',
+    '👀 Preview',
+    '---',
+    '✨ References',
+    '---',
+    '🗄️ Archive'
   ]
 };
 
 export const TEMPLATES: Template[] = [
   DEFAULT_TEMPLATE,
   {
-    id: 'selection-2',
-    name: 'Selection #2',
-    pages: DEFAULT_TEMPLATE.pages
+    id: 'sectioned',
+    name: 'Sectioned',
+    pages: [
+      '🖼️ Cover',
+      '---',
+      '✅ Finalized views',
+      '   ↪ 💻 Desktop',
+      '   ↪ 📱 Mobile',
+      '---',
+      '▶️ Master prototypes',
+      '   ↪ 💻 Desktop',
+      '   ↪ 📱Mobile',
+      '---',
+      '✏️ Exploration phases',
+      '   ↪ ✏️ Phase 1',
+      '   ↪ ✏️ Phase 2',
+      '---',
+      '🧩 Components',
+      '   ↪ 💻 Desktop',
+      '   ↪ 📱 Mobile',
+      '   ↪ ♟️ General',
+      '---',
+      '🗄️ Archive',
+      '   ↪ 🪦 Cemetery'
+    ]
   },
   {
     id: 'selection-3',

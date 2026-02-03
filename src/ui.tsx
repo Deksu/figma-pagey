@@ -109,11 +109,21 @@ const App = () => {
           <div className="section preview">
             <div className="preview-title">Template preview</div>
             <div className="preview-list">
-              {selectedTemplate?.pages.map((page) => (
-                <div key={page} className="preview-item">
-                  {page}
-                </div>
-              ))}
+              {selectedTemplate?.pages.map((page, index) =>
+                page === '---' ? (
+                  <div
+                    key={`${selectedTemplate?.id ?? 'template'}-divider-${index}`}
+                    className="preview-divider"
+                  />
+                ) : (
+                  <div
+                    key={`${selectedTemplate?.id ?? 'template'}-item-${index}`}
+                    className="preview-item"
+                  >
+                    {page}
+                  </div>
+                )
+              )}
             </div>
           </div>
 

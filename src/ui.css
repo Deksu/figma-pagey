@@ -175,11 +175,12 @@ body {
 
 .preview-item {
   padding: 6px 0;
-  border-bottom: 1px solid var(--border-soft);
 }
 
-.preview-item:last-child {
-  border-bottom: none;
+.preview-divider {
+  height: 1px;
+  background: var(--border-soft);
+  margin: 4px 0;
 }
 
 .footer-row {
