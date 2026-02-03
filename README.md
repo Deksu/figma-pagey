@@ -1,0 +1,34 @@
+# Template Page Creator (Figma Plugin)
+
+A lightweight Figma plugin that creates a set of template pages in the current file. v1 ships with a single template (Default) and supports undoing the created pages.
+
+## Features
+- Create 8 predefined pages: Cover, References, Exploration, Preview, Master prototype, Final views, Components, Archive
+- Works even if pages with the same names already exist
+- Undo deletes only pages created during the current plugin run
+
+## Getting Started
+1. Install dependencies:
+   - `npm install`
+2. Build the plugin:
+   - `npm run build`
+3. In Figma:
+   - Plugins → Development → Import plugin from manifest…
+   - Select `manifest.json`
+4. Run the plugin:
+   - Plugins → Development → Template Page Creator
+
+## Development
+- Watch mode: `npm run dev`
+- Tests: `npm test`
+- Typecheck: `npm run typecheck`
+
+## Project Structure
+- `src/code.ts`: main Figma plugin logic
+- `src/ui.tsx`: React UI
+- `src/templates.ts`: template definitions
+- `src/createPages.ts`: core page creation/undo logic
+- `__tests__/`: unit tests
+
+## Notes
+This plugin uses a minimal React UI with plain CSS to stay lightweight and easy to maintain.

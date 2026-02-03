@@ -1,0 +1,31 @@
+{
+  "name": "figma-template-pages-plugin",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Figma plugin to create template pages",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.71.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "css-loader": "^6.10.0",
+    "html-webpack-plugin": "^5.6.0",
+    "jest": "^29.7.0",
+    "style-loader": "^3.3.4",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
