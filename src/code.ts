@@ -1,8 +1,13 @@
 import { createPages, undoPages } from './createPages';
 import { getTemplateById } from './templates';
+import { transformPages } from './transformPages';
 
 type UiMessage =
-  | { type: 'CREATE_PAGES'; templateId: string }
+  | {
+      type: 'CREATE_PAGES';
+      templateId: string;
+      options: { removeDividers: boolean; removeEmojis: boolean };
+    }
   | { type: 'UNDO_PAGES' }
   | { type: 'CLOSE_PLUGIN' };
 
@@ -26,7 +31,12 @@ figma.ui.onmessage = (message: UiMessage) => {
       return;
     }
 
-    createdPageIds = createPages(figma, template.pages);
+    const options = message.options ?? {
+      removeDividers: false,
+      removeEmojis: false
+    };
+    const finalPages = transformPages(template.pages, options);
+    createdPageIds = createPages(figma, finalPages);
     activeTemplateId = template.id;
 
     const response: PluginMessage = {

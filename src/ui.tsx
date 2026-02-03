@@ -8,13 +8,18 @@ import iconAddUrl from '../images/icon-add.svg';
 import defaultSelectionImgUrl from '../images/default-selection-img.png';
 import sectionedSelectionImgUrl from '../images/sectioned-selection-img.png';
 import customSelectionImgUrl from '../images/custom-selection-img.png';
+import { transformPages } from './transformPages';
 
 type PluginMessage =
   | { type: 'CREATED_PAGES'; createdIds: string[]; templateId: string }
   | { type: 'UNDO_COMPLETE' };
 
 type UiMessage =
-  | { type: 'CREATE_PAGES'; templateId: string }
+  | {
+      type: 'CREATE_PAGES';
+      templateId: string;
+      options: { removeDividers: boolean; removeEmojis: boolean };
+    }
   | { type: 'UNDO_PAGES' }
   | { type: 'CLOSE_PLUGIN' };
 
@@ -29,6 +34,8 @@ const App = () => {
   const [selectedTemplateId, setSelectedTemplateId] = useState('default');
   const [createdCount, setCreatedCount] = useState(0);
   const [status, setStatus] = useState<string | null>(null);
+  const [removeDividers, setRemoveDividers] = useState(false);
+  const [removeEmojis, setRemoveEmojis] = useState(false);
 
   const selectedTemplate = useMemo<Template | undefined>(
     () => TEMPLATES.find((template) => template.id === selectedTemplateId),
@@ -68,7 +75,11 @@ const App = () => {
 
   const handleCreate = () => {
     if (!selectedTemplate) return;
-    sendToPlugin({ type: 'CREATE_PAGES', templateId: selectedTemplate.id });
+    sendToPlugin({
+      type: 'CREATE_PAGES',
+      templateId: selectedTemplate.id,
+      options: { removeDividers, removeEmojis }
+    });
   };
 
   const handleClose = () => {
@@ -127,7 +138,10 @@ const App = () => {
           <div className="section preview">
             <div className="preview-title">Template preview</div>
             <div className="preview-list">
-              {selectedTemplate?.pages.map((page, index) =>
+              {transformPages(selectedTemplate?.pages ?? [], {
+                removeDividers,
+                removeEmojis
+              }).map((page, index) =>
                 page === '---' ? (
                   <div
                     key={`${selectedTemplate?.id ?? 'template'}-divider-${index}`}
@@ -143,6 +157,27 @@ const App = () => {
                 )
               )}
             </div>
+          </div>
+
+          <div className="checkbox-row">
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                checked={removeDividers}
+                onChange={(event) => setRemoveDividers(event.target.checked)}
+              />
+              <span className="checkbox-box" aria-hidden="true" />
+              <span className="checkbox-label">Remove dividers</span>
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                checked={removeEmojis}
+                onChange={(event) => setRemoveEmojis(event.target.checked)}
+              />
+              <span className="checkbox-box" aria-hidden="true" />
+              <span className="checkbox-label">Remove emojis</span>
+            </label>
           </div>
 
           {status && <div className="status">{status}</div>}

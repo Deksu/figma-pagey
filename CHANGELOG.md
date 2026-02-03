@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+- Added options to remove dividers and emojis from templates (preview + creation).
+- Added checkbox UI controls for template cleanup options.
+- Improved emoji handling and added transform logic tests.
+- Adjusted brand logo sizing.
+
 ## 1.1.1
 - Added custom selection card as a disabled "coming soon" option.
 - Updated selection card imagery and logo.
