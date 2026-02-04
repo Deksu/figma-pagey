@@ -33,7 +33,12 @@ const App = () => {
   const [view, setView] = useState<ViewState>('select');
   const [selectedTemplateId, setSelectedTemplateId] = useState('default');
   const [createdCount, setCreatedCount] = useState(0);
-  const [status, setStatus] = useState<string | null>(null);
+  const [toast, setToast] = useState<{
+    id: number;
+    message: string;
+    tone: 'success' | 'error';
+    phase: 'visible' | 'leaving';
+  } | null>(null);
   const [removeDividers, setRemoveDividers] = useState(false);
   const [removeEmojis, setRemoveEmojis] = useState(false);
 
@@ -59,19 +64,44 @@ const App = () => {
       if (message.type === 'CREATED_PAGES') {
         setCreatedCount(message.createdIds.length);
         setView('post-create');
-        setStatus(null);
+        setToast(null);
       }
 
       if (message.type === 'UNDO_COMPLETE') {
         setCreatedCount(0);
         setView('select');
-        setStatus('Pages deleted.');
+        setToast({
+          id: Date.now(),
+          message: 'Pages deleted successfully',
+          tone: 'success',
+          phase: 'visible'
+        });
       }
     };
 
     window.addEventListener('message', handler);
     return () => window.removeEventListener('message', handler);
   }, []);
+
+  useEffect(() => {
+    if (!toast) return undefined;
+    const leaveTimeout = window.setTimeout(() => {
+      setToast((current) =>
+        current && current.id === toast.id
+          ? { ...current, phase: 'leaving' }
+          : current
+      );
+    }, 5400);
+    const clearTimeout = window.setTimeout(() => {
+      setToast((current) =>
+        current && current.id === toast.id ? null : current
+      );
+    }, 6000);
+    return () => {
+      window.clearTimeout(leaveTimeout);
+      window.clearTimeout(clearTimeout);
+    };
+  }, [toast?.id]);
 
   const handleCreate = () => {
     if (!selectedTemplate) return;
@@ -96,6 +126,16 @@ const App = () => {
         <img className="logo" src={logoUrl} alt="Pagey logo" />
         <div className="brand-name">Pagey</div>
       </div>
+
+      {toast && (
+        <div
+          className={`toast toast-${toast.tone} ${
+            toast.phase === 'visible' ? 'is-visible' : 'is-leaving'
+          }`}
+        >
+          <div className="toast-text">{toast.message}</div>
+        </div>
+      )}
 
       {view === 'select' && (
         <div>
@@ -159,33 +199,27 @@ const App = () => {
             </div>
           </div>
 
-          <div className="checkbox-row">
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={removeDividers}
-                onChange={(event) => setRemoveDividers(event.target.checked)}
-              />
-              <span className="checkbox-box" aria-hidden="true" />
-              <span className="checkbox-label">Remove dividers</span>
-            </label>
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={removeEmojis}
-                onChange={(event) => setRemoveEmojis(event.target.checked)}
-              />
-              <span className="checkbox-box" aria-hidden="true" />
-              <span className="checkbox-label">Remove emojis</span>
-            </label>
-          </div>
-
-          {status && <div className="status">{status}</div>}
-
           <div className="footer-row">
-            <button className="button ghost" onClick={handleClose}>
-              Close plugin
-            </button>
+            <div className="checkbox-row">
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={removeDividers}
+                  onChange={(event) => setRemoveDividers(event.target.checked)}
+                />
+                <span className="checkbox-box" aria-hidden="true" />
+                <span className="checkbox-label">Remove dividers</span>
+              </label>
+              <label className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={removeEmojis}
+                  onChange={(event) => setRemoveEmojis(event.target.checked)}
+                />
+                <span className="checkbox-box" aria-hidden="true" />
+                <span className="checkbox-label">Remove emojis</span>
+              </label>
+            </div>
             <button className="button primary" onClick={handleCreate}>
               Create pages
               <span className="button-icon" aria-hidden="true">
@@ -202,38 +236,38 @@ const App = () => {
       )}
 
       {view === 'post-create' && (
-        <div>
+        <div className="centered-view">
           <div className="message">
             {createdCount} pages created. Verify everything is OK.
           </div>
-          <div className="footer-row">
-            <button className="button primary" onClick={handleClose}>
-              All good, close
-            </button>
+          <div className="footer-row action-row">
             <button
               className="button ghost"
               onClick={() => setView('confirm-undo')}
             >
-              Undo…
+              Undo
+            </button>
+            <button className="button primary" onClick={handleClose}>
+              All good, close
             </button>
           </div>
         </div>
       )}
 
       {view === 'confirm-undo' && (
-        <div>
+        <div className="centered-view">
           <div className="message">
             This will delete the pages created by this plugin run.
           </div>
-          <div className="footer-row">
-            <button className="button danger" onClick={handleUndo}>
-              Delete pages
-            </button>
+          <div className="footer-row action-row">
             <button
               className="button ghost"
               onClick={() => setView('post-create')}
             >
               Back
+            </button>
+            <button className="button danger" onClick={handleUndo}>
+              Delete pages
             </button>
           </div>
         </div>

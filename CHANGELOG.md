@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1
+- Refined button sizing, alignment, and action layouts.
+- Added toast feedback with success/error styling and animation.
+- Improved layout responsiveness for smaller plugin windows.
+
 ## 1.2.0
 - Added options to remove dividers and emojis from templates (preview + creation).
 - Added checkbox UI controls for template cleanup options.
