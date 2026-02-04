@@ -45,3 +45,10 @@ GitHub Actions runs typecheck, tests, and a production build on every push to `m
 
 ## Notes
 This plugin uses a minimal React UI with plain CSS to stay lightweight and easy to maintain.
+
+## Additional Docs
+- `docs/UX.md`: UX flow and UI behavior notes
+- `docs/TEMPLATES.md`: template lists and conventions
+- `docs/ARCHITECTURE.md`: message flow and code structure
+- `docs/TESTING.md`: test coverage and commands
+- `docs/RELEASE.md`: release steps and versioning
