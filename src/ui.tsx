@@ -37,7 +37,7 @@ const App = () => {
     id: number;
     message: string;
     tone: 'success' | 'error';
-    phase: 'visible' | 'leaving';
+    phase: 'entering' | 'visible' | 'leaving';
   } | null>(null);
   const [removeDividers, setRemoveDividers] = useState(false);
   const [removeEmojis, setRemoveEmojis] = useState(false);
@@ -74,7 +74,7 @@ const App = () => {
           id: Date.now(),
           message: 'Pages deleted successfully',
           tone: 'success',
-          phase: 'visible'
+          phase: 'entering'
         });
       }
     };
@@ -85,6 +85,13 @@ const App = () => {
 
   useEffect(() => {
     if (!toast) return undefined;
+    const enterFrame = window.requestAnimationFrame(() => {
+      setToast((current) =>
+        current && current.id === toast.id
+          ? { ...current, phase: 'visible' }
+          : current
+      );
+    });
     const leaveTimeout = window.setTimeout(() => {
       setToast((current) =>
         current && current.id === toast.id
@@ -98,6 +105,7 @@ const App = () => {
       );
     }, 6000);
     return () => {
+      window.cancelAnimationFrame(enterFrame);
       window.clearTimeout(leaveTimeout);
       window.clearTimeout(clearTimeout);
     };
@@ -129,8 +137,13 @@ const App = () => {
 
       {toast && (
         <div
+          key={toast.id}
           className={`toast toast-${toast.tone} ${
-            toast.phase === 'visible' ? 'is-visible' : 'is-leaving'
+            toast.phase === 'visible'
+              ? 'is-visible'
+              : toast.phase === 'leaving'
+                ? 'is-leaving'
+                : ''
           }`}
         >
           <div className="toast-text">{toast.message}</div>

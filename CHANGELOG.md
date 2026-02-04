@@ -3,6 +3,7 @@
 ## 1.2.1
 - Refined button sizing, alignment, and action layouts.
 - Added toast feedback with success/error styling and animation.
+- Fixed toast enter animation by deferring the visible state to the next frame.
 - Improved layout responsiveness for smaller plugin windows.
 
 ## 1.2.0
