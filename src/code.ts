@@ -18,7 +18,7 @@ type PluginMessage =
 const UI_WIDTH = 720;
 const UI_HEIGHT = 760;
 
-figma.showUI(__html__, { width: UI_WIDTH, height: UI_HEIGHT, resizable: true });
+figma.showUI(__html__, { width: UI_WIDTH, height: UI_HEIGHT });
 
 let createdPageIds: string[] = [];
 let activeTemplateId: string | null = null;

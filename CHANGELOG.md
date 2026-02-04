@@ -1,8 +1,5 @@
 # Changelog
 
-## 1.3.0
-- Made the plugin window resizable and updated layouts for responsive behavior.
-
 ## 1.2.0
 - Added options to remove dividers and emojis from templates (preview + creation).
 - Added checkbox UI controls for template cleanup options.
