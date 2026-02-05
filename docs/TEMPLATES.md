@@ -47,6 +47,14 @@
    ↪ 🪦 Cemetery
 ```
 
+## Custom
+- Defined by the user in the UI.
+- One line per page, use `---` to insert dividers.
+- Saved per user using `figma.clientStorage`.
+- Custom templates have a user-defined name (max 40 characters).
+- Up to 5 custom templates can be saved.
+- Template names must be unique (including Default and Sectioned).
+
 ## Adding a template
 1. Add to `src/templates.ts`.
 2. Ensure preview and creation logic use `transformPages`.

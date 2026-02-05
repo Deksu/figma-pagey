@@ -2,18 +2,26 @@
 
 ## Views and flow
 1. Select template
-2. Post-create confirmation
-3. Confirm undo
+2. Custom template editor (when creating or editing)
+3. Post-create confirmation
+4. Confirm undo
 
 ## Selection view
-- Three cards in a single row.
+- Template cards scroll horizontally when more custom templates are added.
 - Selected card uses primary border + indicator.
-- Disabled card is 25% opacity and non-interactive.
+- Custom card shows "Create template" until saved.
 
 ## Preview
 - Uses template pages as-is.
 - Dividers render only where `---` exists.
 - Optional toggles can remove dividers or emojis.
+
+## Custom editor
+- Name input (max 40 characters).
+- Textarea input: one line per page.
+- `---` inserts dividers.
+- Save validates limits (line count and length) before storage.
+- Custom templates can be deleted from the preview header with a confirmation dialog.
 
 ## Buttons
 - "Hug" sizing: height 44px, horizontal padding 16px.

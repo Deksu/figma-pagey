@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.0
+- Added per-user custom template editor with save/load.
+- Stored custom templates in Figma client storage.
+- Added support for multiple named custom templates (up to 5).
+- Added validation and tests for custom template data.
+- Updated UI preview and selection behavior for custom templates.
+- Added delete action for custom templates and fixed persistence after deletion.
+
 ## 1.2.1
 - Refined button sizing, alignment, and action layouts.
 - Added toast feedback with success/error styling and animation.

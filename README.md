@@ -8,6 +8,7 @@ A lightweight Figma plugin that creates a set of template pages in the current f
 - Create 8 predefined pages: Cover, References, Exploration, Preview, Master prototype, Final views, Components, Archive
 - Works even if pages with the same names already exist
 - Undo deletes only pages created during the current plugin run
+- Save up to 5 per-user custom templates for reuse across files
 
 ## Getting Started
 1. Install dependencies:

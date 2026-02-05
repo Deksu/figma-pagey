@@ -52,13 +52,14 @@ export const TEMPLATES: Template[] = [
       '🗄️ Archive',
       '   ↪ 🪦 Cemetery'
     ]
-  },
-  {
-    id: 'selection-3',
-    name: 'Custom (coming soon)',
-    pages: DEFAULT_TEMPLATE.pages
   }
 ];
+
+export const getCustomTemplate = (id: string, name: string, pages: string[]): Template => ({
+  id,
+  name,
+  pages
+});
 
 export const getTemplateById = (id: string): Template | undefined =>
   TEMPLATES.find((template) => template.id === id);

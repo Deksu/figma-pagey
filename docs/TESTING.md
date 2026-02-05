@@ -14,3 +14,4 @@
 - Any template change.
 - Any change to emoji/divider behavior.
 - Any change to create/undo flow.
+- Any change to custom template validation or storage.
