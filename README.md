@@ -21,7 +21,7 @@ A lightweight Figma plugin that creates a set of template pages in the current f
    - Plugins → Development → Import plugin from manifest…
    - Select `manifest.json`
 4. Run the plugin:
-   - Plugins → Development → Template Page Creator
+   - Plugins → Development → Figma Pagey
 
 ## Development
 - Watch mode: `npm run dev`
