@@ -19,11 +19,17 @@ type UiMessage =
       type: 'CREATE_PAGES';
       templateId: string;
       options: { removeDividers: boolean; removeEmojis: boolean };
+      pagesOverride?: string[];
     }
   | { type: 'LOAD_CUSTOM_TEMPLATE' }
   | {
       type: 'SAVE_CUSTOM_TEMPLATE';
-      template: { id?: string; name: string; pages: string[] };
+      template: {
+        id?: string;
+        name: string;
+        pages: string[];
+        description?: string;
+      };
     }
   | { type: 'DELETE_CUSTOM_TEMPLATE'; templateId: string }
   | { type: 'UNDO_PAGES' }
@@ -31,14 +37,17 @@ type UiMessage =
 
 type PluginMessage =
   | { type: 'CREATED_PAGES'; createdIds: string[]; templateId: string }
-  | { type: 'CUSTOM_TEMPLATE_LOADED'; templates: StoredCustomTemplates['templates'] }
+  | {
+      type: 'CUSTOM_TEMPLATE_LOADED';
+      templates: StoredCustomTemplates['templates'];
+    }
   | { type: 'CUSTOM_TEMPLATE_SAVED'; template: StoredCustomTemplate }
   | { type: 'CUSTOM_TEMPLATE_DELETED'; templateId: string }
   | { type: 'CUSTOM_TEMPLATE_SAVE_FAILED'; errors: string[] }
   | { type: 'UNDO_COMPLETE' };
 
-const UI_WIDTH = 720;
-const UI_HEIGHT = 760;
+const UI_WIDTH = 846;
+const UI_HEIGHT = 648;
 
 figma.showUI(__html__, { width: UI_WIDTH, height: UI_HEIGHT });
 
@@ -152,6 +161,7 @@ figma.ui.onmessage = async (message: UiMessage) => {
       id: templateId,
       name: normalizedName,
       pages,
+      description: message.template.description?.trim() || undefined,
       updatedAt: Date.now()
     } satisfies StoredCustomTemplate;
 
@@ -193,7 +203,12 @@ figma.ui.onmessage = async (message: UiMessage) => {
         figma.notify('Template not found.');
         return;
       }
-      template = { id: custom.id, name: custom.name, pages: custom.pages };
+      template = {
+        id: custom.id,
+        name: custom.name,
+        pages: custom.pages,
+        description: custom.description
+      };
     }
     if (!template) {
       figma.notify('Template not found.');
@@ -204,7 +219,10 @@ figma.ui.onmessage = async (message: UiMessage) => {
       removeDividers: false,
       removeEmojis: false
     };
-    const finalPages = transformPages(template.pages, options);
+    const finalPages =
+      message.pagesOverride && message.pagesOverride.length > 0
+        ? message.pagesOverride
+        : transformPages(template.pages, options);
     createdPageIds = createPages(figma, finalPages);
     activeTemplateId = template.id;
 

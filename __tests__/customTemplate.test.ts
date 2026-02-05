@@ -62,12 +62,24 @@ describe('custom template storage sanitization', () => {
     expect(
       sanitizeStoredTemplate({
         templates: [
-          { id: 'custom:1', name: 'Custom', pages, updatedAt: Date.now() }
+          {
+            id: 'custom:1',
+            name: 'Custom',
+            pages,
+            description: 'My custom template',
+            updatedAt: Date.now()
+          }
         ]
       })
     ).toEqual({
       templates: [
-        { id: 'custom:1', name: 'Custom', pages, updatedAt: expect.any(Number) }
+        {
+          id: 'custom:1',
+          name: 'Custom',
+          pages,
+          description: 'My custom template',
+          updatedAt: expect.any(Number)
+        }
       ]
     });
   });

@@ -2,11 +2,13 @@ export type Template = {
   id: string;
   name: string;
   pages: string[];
+  description?: string;
 };
 
 export const DEFAULT_TEMPLATE: Template = {
   id: 'default',
   name: 'Default',
+  description: 'A clean, sequential structure for product work.',
   pages: [
     '🖼️ Cover',
     '---',
@@ -29,6 +31,7 @@ export const TEMPLATES: Template[] = [
   {
     id: 'sectioned',
     name: 'Sectioned',
+    description: 'Deeply nested sections for complex systems.',
     pages: [
       '🖼️ Cover',
       '---',
@@ -55,10 +58,16 @@ export const TEMPLATES: Template[] = [
   }
 ];
 
-export const getCustomTemplate = (id: string, name: string, pages: string[]): Template => ({
+export const getCustomTemplate = (
+  id: string,
+  name: string,
+  pages: string[],
+  description?: string
+): Template => ({
   id,
   name,
-  pages
+  pages,
+  description: description ?? 'A template you crafted by hand.'
 });
 
 export const getTemplateById = (id: string): Template | undefined =>

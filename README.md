@@ -2,13 +2,15 @@
 
 **Description:** A lightweight Figma plugin that creates predefined page templates to speed up project setup.
 
-A lightweight Figma plugin that creates a set of template pages in the current file. v1 ships with a single template (Default) and supports undoing the created pages.
+A lightweight Figma plugin that creates a set of template pages in the current file. It ships with Default and Sectioned templates, supports undo, and offers a live preview editor for quick tweaks.
 
 ## Features
-- Create 8 predefined pages: Cover, References, Exploration, Preview, Master prototype, Final views, Components, Archive
+- Create structured page templates (Default and Sectioned)
+- Live preview editor with inline rename, reorder, and add-page controls
+- Optional toggles to hide dividers or emojis before creation
 - Works even if pages with the same names already exist
 - Undo deletes only pages created during the current plugin run
-- Save up to 5 per-user custom templates for reuse across files
+- Save up to 5 per-user custom templates with optional descriptions
 
 ## Getting Started
 1. Install dependencies:

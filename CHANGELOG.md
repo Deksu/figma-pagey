@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.0
+- Full UI redesign with two-column layout, live preview pane, and refreshed template cards.
+- Live preview supports inline editing, drag-and-drop reordering, and adding new pages.
+- Added optional custom template description field with persistence.
+- Added reset controls for default templates and improved toast placement.
+- Added create-page loading state and consolidated confirmation actions in the bottom bar.
+
 ## 2.0.0
 - Added per-user custom template editor with save/load.
 - Stored custom templates in Figma client storage.

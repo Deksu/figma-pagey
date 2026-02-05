@@ -72,6 +72,7 @@ export type StoredCustomTemplate = {
   id: string;
   name: string;
   pages: string[];
+  description?: string;
   updatedAt: number;
 };
 
@@ -111,18 +112,28 @@ export const sanitizeStoredTemplate = (
       if (typeof candidate.name !== 'string') return null;
       if (!Array.isArray(candidate.pages)) return null;
       if (!candidate.pages.every((page) => typeof page === 'string')) return null;
+      if (
+        candidate.description !== undefined &&
+        typeof candidate.description !== 'string'
+      )
+        return null;
       const nameErrors = validateTemplateName(candidate.name);
       const { pages, errors } = validateTemplateLines(candidate.pages);
       if (nameErrors.length > 0 || errors.length > 0) return null;
-      return {
+      const normalized: StoredCustomTemplate = {
         id: candidate.id,
         name: normalizeTemplateName(candidate.name),
         pages,
+        description:
+          typeof candidate.description === 'string'
+            ? candidate.description.trim().slice(0, 80)
+            : undefined,
         updatedAt:
           typeof candidate.updatedAt === 'number' ? candidate.updatedAt : 0
-      } satisfies StoredCustomTemplate;
+      };
+      return normalized;
     })
-    .filter((item): item is StoredCustomTemplate => Boolean(item));
+    .filter((item): item is StoredCustomTemplate => item !== null);
 
   return {
     templates: templates.slice(0, CUSTOM_TEMPLATE_LIMITS.maxTemplates)

@@ -52,6 +52,7 @@
 - One line per page, use `---` to insert dividers.
 - Saved per user using `figma.clientStorage`.
 - Custom templates have a user-defined name (max 40 characters).
+- Optional description (max 80 characters).
 - Up to 5 custom templates can be saved.
 - Template names must be unique (including Default and Sectioned).
 
