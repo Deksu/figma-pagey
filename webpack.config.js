@@ -47,7 +47,7 @@ module.exports = {
     code: './src/code.ts'
   },
   mode: 'production',
-  devtool: 'source-map',
+  devtool: 'hidden-source-map',
   module: {
     rules: [
       {
