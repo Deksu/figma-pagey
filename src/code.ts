@@ -236,12 +236,14 @@ figma.ui.onmessage = async (message: UiMessage) => {
   }
 
   if (message.type === 'UNDO_PAGES') {
-    if (createdPageIds.length > 0) {
-      undoPages(figma, createdPageIds);
-    }
+    const idsToUndo = createdPageIds;
     createdPageIds = [];
     activeTemplateId = null;
-    figma.ui.postMessage({ type: 'UNDO_COMPLETE' } satisfies PluginMessage);
+    try {
+      await undoPages(figma, idsToUndo);
+    } finally {
+      figma.ui.postMessage({ type: 'UNDO_COMPLETE' } satisfies PluginMessage);
+    }
     return;
   }
 
