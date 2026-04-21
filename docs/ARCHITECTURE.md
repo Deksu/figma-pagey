@@ -23,3 +23,8 @@
 ## Transform logic
 - `transformPages` handles divider and emoji removal.
 - Used by UI preview and by `code.ts` before creation to keep parity.
+
+## Undo behavior
+- `undoPages` uses `figma.getNodeByIdAsync` so it works in dynamic-page documents where the legacy sync `getNodeById` can miss unloaded pages.
+- Before deleting, it moves `figma.currentPage` off any page scheduled for removal via `setCurrentPageAsync`, because `pageNode.remove()` throws on the active page.
+- Each removal is wrapped in try/catch so one failure does not strand the remaining pages, and `UNDO_COMPLETE` is always posted (in a `finally`) so the UI can exit the confirm view.

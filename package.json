@@ -1,8 +1,25 @@
 {
-  "name": "figma-template-pages-plugin",
+  "name": "figma-pagey",
   "private": true,
   "version": "3.0.0",
-  "description": "Figma plugin to create template pages",
+  "description": "A lightweight Figma plugin that creates structured page templates (Default, Sectioned, and custom) in the current Figma file.",
+  "license": "MIT",
+  "author": "Miikka Marin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Deksu/figma-pagey.git"
+  },
+  "homepage": "https://github.com/Deksu/figma-pagey#readme",
+  "bugs": {
+    "url": "https://github.com/Deksu/figma-pagey/issues"
+  },
+  "keywords": [
+    "figma",
+    "figma-plugin",
+    "pages",
+    "template",
+    "productivity"
+  ],
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack --mode=development --watch",
